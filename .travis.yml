@@ -8,3 +8,17 @@ before_install:
 
 script:
   - docker run -e CI=true catsync/tutorial-docker npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "tutorial-docker"
+  env: "TutorialDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-965741728143"
+  bucket_path: "tutorial-docker"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
